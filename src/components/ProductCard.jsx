@@ -1,7 +1,23 @@
-import React from "react";
+import {useState, useEffect} from "react";
+import { useCart } from "../context/CartContext";
 
 const ProductCard = ({ product }) => {
+  const { cartList, addToCart, removeFromCart } = useCart();
+  const [isInCart, setIsInCart] = useState(false);
+
   const { id, name, price, image } = product;
+
+  useEffect(() => {
+    const productIsInCart = cartList.find(cartItem => cartItem.id === id);
+
+    if(productIsInCart){
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
+    }
+
+  }, [cartList, id]);
+
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
       <a href="#">
@@ -21,7 +37,7 @@ const ProductCard = ({ product }) => {
             href="#"
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-            Add To Cart
+             { isInCart ? (<button className="remove" onClick={() => removeFromCart(product)}>Remove</button>) :  (<button onClick={() => addToCart(product)}>Add To Cart</button>) }
             <svg
                 className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                 aria-hidden="true"

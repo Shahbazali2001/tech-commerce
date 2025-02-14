@@ -70,7 +70,7 @@ export const CartProvider = ({children}) => {
 
 export const  useCart = () => {
     const context = useContext(CartContext)
-    retunr context;
+    return context;
 }
 
 

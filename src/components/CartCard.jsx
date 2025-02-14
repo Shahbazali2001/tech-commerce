@@ -1,6 +1,7 @@
 import React from 'react'
-
+import { useCart } from '../context/CartContext';
 const CartCard = ({product}) => {
+  const {removeFromCart} = useCart; 
 
   const { name, price, image } = product;
   return (
@@ -10,7 +11,7 @@ const CartCard = ({product}) => {
   <img src={image} alt={name} />
   <p className='productName'>{name}</p>
   <p className='productPrice'>${price}</p>
-  <button className='removeFromCart'>Remove</button>
+  <button className='removeFromCart' onClick={() => removeFromCart(product)}>Remove</button>
 
 </div>
 
